@@ -18,7 +18,8 @@ All schematics and design files are open-source and align with the official comp
 
 ### 🏁 Track Composer  
 The `trackComposer/` directory includes **track templates**.  
-- These files can be used to **print and build practice tracks**.  
+- These files can be used to **print and build practice tracks**. You can download some examples [HERE](https://drive.google.com/drive/folders/1T4SW41VzTQQqG8hMeqaypMbbVBZAvxJS?usp=sharing), and probably find more in the Discord Community.
+- A video tutorial explaining how to construct to-scale tracks for the simulator and which you can print too.
 - Templates cover a variety of challenge elements (curves, forks, discontinuities, stop box, etc.) consistent with competition rules.  
 
 This allows teams to test their robots on layouts similar to official competition tracks.  
