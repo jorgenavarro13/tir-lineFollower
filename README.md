@@ -40,7 +40,7 @@ The simulator enables teams to **experiment with control strategies before the p
 
 1. Clone this repository:  
    ```bash
-   git clone https://github.com/<your-org>/tir-lineFollower.git
+   git clone [https://github.com/<your-org>/tir-lineFollower.git](https://github.com/IRS-tecMty/tir-lineFollower.git)
    cd tir-lineFollower
    ```
 2. Explore the `hardware/` directory to familiarize yourself with the robot design.  
