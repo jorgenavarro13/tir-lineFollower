@@ -67,3 +67,32 @@ def set_speeds(sim, left_joint, right_joint,
 def stop(sim, left_joint, right_joint):
     sim.setJointTargetVelocity(left_joint,  0.0)
     sim.setJointTargetVelocity(right_joint, 0.0)
+
+# Sets motor speeds directly in rad/s (bypassing meters per second conversion)
+def set_speeds_rad(sim, left_joint, right_joint,
+                  left_rad_s, right_rad_s,
+                  max_rad_s=10.0,
+                  left_sign=1.0, right_sign=1.0):
+    """
+    Sets the wheel speeds directly in radians per second
+    
+    Parameters:
+    - sim: CoppeliaSim simulation object
+    - left_joint, right_joint: handles to wheel joints
+    - left_rad_s, right_rad_s: desired angular velocities in rad/s
+    - max_rad_s: maximum allowed angular velocity in rad/s
+    - left_sign, right_sign: multipliers to account for wheel orientation (-1 if reversed)
+    
+    Returns:
+    - Tuple of (left_applied_rad_s, right_applied_rad_s): The actual applied velocities
+    """
+    # Clamp the values to max angular velocity
+    left_w = _clamp(float(left_rad_s), -max_rad_s, max_rad_s)
+    right_w = _clamp(float(right_rad_s), -max_rad_s, max_rad_s)
+    
+    # Set the joint velocities
+    sim.setJointTargetVelocity(left_joint, left_sign * left_w)
+    sim.setJointTargetVelocity(right_joint, right_sign * right_w)
+    
+    return left_w, right_w
+

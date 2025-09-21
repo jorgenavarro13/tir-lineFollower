@@ -27,9 +27,8 @@ def init_cameras(api_path, host='localhost', port=23000, base_name='/LineTracer/
 #Reads the 8 vision sensors, prints 0/1 for each one,
 #and opens debug windows showing what each sensor sees if activated.
 def read_cameras(sim, cam_handles, dt=0.1, threshold=0.2):
-    
-    
     print("[INFO] Reading 8 Vision Sensors (Ctrl+C to stop)")
+
     try:
         while True:
             states = []
@@ -82,3 +81,43 @@ def read_cameras(sim, cam_handles, dt=0.1, threshold=0.2):
         print("\n[INFO] Camera reading stopped.")
     finally:
         cv2.destroyAllWindows()
+
+# Returns a list of 8 binary values (0 or 1) representing the sensor readings
+# 1 indicates detection of the line (black), 0 indicates background (white)
+def get_sensor_values(sim, cam_handles, threshold=0.2):
+    states = []
+    for i, h in enumerate(cam_handles):
+        img, res = sim.getVisionSensorImg(h)
+        w, hres = int(res[0]), int(res[1])
+
+        # Convert the buffer into a numpy array
+        if isinstance(img, (bytes, bytearray)):
+            buf = np.frombuffer(img, dtype=np.uint8)
+            scale255 = True
+        else:
+            buf = np.asarray(img, dtype=np.float32)
+            scale255 = False
+
+        # Reconstruct the image: RGB or grayscale
+        if buf.size == w * hres * 3:
+            if scale255:
+                frame = buf.reshape(hres, w, 3).astype(np.float32) / 255.0
+            else:
+                frame = (buf.reshape(hres, w, 3) + 1.0) / 2.0
+            gray = frame.mean(axis=2)
+        elif buf.size == w * hres:
+            if scale255:
+                frame = buf.reshape(hres, w).astype(np.float32) / 255.0
+            else:
+                frame = (buf.reshape(hres, w) + 1.0) / 2.0
+            gray = frame
+        else:
+            print(f"[WARN] Unexpected buffer size for sensor {i}")
+            states.append(0)  # Default to 0 on error
+            continue
+
+        # Binary detection: 1 if black (line), 0 if white (background)
+        detected = 1 if gray.mean() < threshold else 0
+        states.append(detected)  # Store as integer, not string
+    
+    return states
