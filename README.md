@@ -10,13 +10,18 @@ This repository contains all the resources needed to design, assemble, and test 
 The `hardware/` folder contains:
 - **Photos** of the PCB and assembled robot.  
 - **Datasheets** for all key components.  
-- **Schematics** and design files for the printed circuit board (PCB).  
+- **Schematics** and design files for the printed circuit board (PCB).
 
 All schematics and design files are open-source and align with the official competition kit.
 
 ---
 
-### 🏁 Track Composer  
+### 🏁 Track Specifications
+You can find more about the track features, specifications and measurements [here](track_features.md).
+
+---
+
+### 🏁 Track Composer
 The `trackComposer/` directory includes **track templates**.  
 - These files can be used to **print and build practice tracks**. You can download some examples [HERE](https://drive.google.com/drive/folders/1T4SW41VzTQQqG8hMeqaypMbbVBZAvxJS?usp=sharing), and probably find more in the Discord Community.
 - A video tutorial explaining how to construct to-scale tracks for the simulator and which you can print too.
