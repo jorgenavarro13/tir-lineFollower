@@ -46,8 +46,8 @@ def set_motor_speeds(norm_left, norm_right):
     right_linear_velocity = norm_right * MAX_SPEED
     
     # Convert to angular velocities in rad/s
-    left_angular_velocity = left_linear_velocity / WHEEL_R
-    right_angular_velocity = right_linear_velocity / WHEEL_R
+    left_angular_velocity = left_linear_velocity / (WHEEL_D / 2)
+    right_angular_velocity = right_linear_velocity / (WHEEL_D / 2)
     
     # Set the motor velocities
     client.setStepping(True)
@@ -56,7 +56,7 @@ def set_motor_speeds(norm_left, norm_right):
     client.setStepping(False)
 
 # --- Initialization code (don't change) --- #
-WHEEL_R = 0.14  # Wheel radius in meters
+WHEEL_D = 0.05  # Wheel diameter in meters
 MAX_SPEED = 1.2 # m/s
 client = RemoteAPIClient('localhost', 23000)
 sim = client.getObject('sim')
